@@ -1,7 +1,8 @@
 import './utils.js';
 import VueAuthenticate from './authenticate.js';
 
-const vueAuthInstance;
+let vueAuthInstance;
+
 const VueAuthenticatePlugin = {
   install(app, options) {
     if (!options) {
