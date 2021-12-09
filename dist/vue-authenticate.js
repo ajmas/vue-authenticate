@@ -1613,17 +1613,22 @@
         options = {};
       }
 
-      // const Toast = new T(options);
-      // app.component('toasted', ToastComponent);
       app.config.globalProperties.$auth = {
         get: function get() {
           if (!vueAuthInstance) {
-            // Request handler library not found, throw error
-            if (!this.$http) {
+            var axios;
+            // if an axios instance is passed then use that,
+            // then try to see if there is a instance referenced via
+            // the $http instance property, otherwie fail
+            if (options.axios) {
+              axios = options.axios;
+            } else if (this.$http) {
+              axios = this.$http;
+            } else {
               throw new Error('Request handler instance not found');
             }
 
-            vueAuthInstance = new VueAuthenticate(this.$http, options);
+            vueAuthInstance = new VueAuthenticate(axios, options);
           }
           return vueAuthInstance;
         }
