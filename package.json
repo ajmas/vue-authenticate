@@ -47,7 +47,7 @@
   },
   "peerDependencies": {
     "axios": "^0.18.0",
-    "vue": "^2.6.10",
+    "vue": "^3.2.4",
     "vue-axios": "^2.1.4"
   },
   "tags": [
@@ -67,5 +67,7 @@
     "oauth 1.0",
     "oauth 2.0"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "vue": "3.2.4"
+  }
 }
