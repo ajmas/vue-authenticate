@@ -1614,8 +1614,8 @@ const VueAuthenticatePlugin = {
       // the $http instance property, otherwie fail
       if (options.axios) {
         axios = options.axios;
-      } else if (this.$http) {
-        axios = this.$http;
+      } else if (app.config.globalProperties.$http) {
+        axios = app.config.globalProperties.$http;
       } else {
         throw new Error('Request handler instance not found');
       }
