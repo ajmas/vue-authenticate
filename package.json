@@ -2,9 +2,11 @@
   "name": "vue-authenticate",
   "version": "1.5.0",
   "description": "Authentication library for Vue.js",
-  "main": "dist/vue-authenticate.js",
+  "module": "dist/vue-authenticate.esm.min.js",
+  "browser": "dist/vue-authenticate.umd.min.js",
+  "main": "dist/vue-authenticate.esm.min.js",
   "scripts": {
-    "build": "rollup src/index.js --format umd --name \"vue-authenticate\" --file dist/vue-authenticate.js"
+    "build": "rollup -c"
   },
   "keywords": [
     "vue",
@@ -40,6 +42,7 @@
     "rollup": "^2.61.1",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-banner": "^0.2.1",
+    "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-uglify": "^6.0.4",
     "uglify-js": "^3.9.1"
   },
