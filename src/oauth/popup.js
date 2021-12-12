@@ -66,6 +66,10 @@ export default class OAuthPopup {
             let params = objectExtend({}, query);
             params = objectExtend(params, hash);
 
+            clearInterval(poolingInterval);
+            poolingInterval = null;
+            this.popup.close();
+
             if (params.error) {
               throw new Error(params.error);
             } else {
@@ -79,10 +83,6 @@ export default class OAuthPopup {
         }
       } catch (error) {
         // Ignore DOMException: Blocked a frame with origin from accessing a cross-origin frame.
-      } finally {
-        clearInterval(poolingInterval);
-        poolingInterval = null;
-        this.popup.close();
       }
     }, 250);
   }
