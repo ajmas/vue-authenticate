@@ -11,10 +11,12 @@ export default {
             name: 'vue-authenticate',
             file: pkg.browser,
             format: 'umd',
+            sourcemap: true
         },
         {
             file: pkg.module,
-            format: 'es'
-        },
-    ],
+            format: 'es',
+            sourcemap: true
+        }
+    ]
 };
