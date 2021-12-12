@@ -80,7 +80,7 @@ export default class VueAuthenticate {
             // JWT with an optonal expiration claims
             return Math.round(new Date().getTime() / 1000) < exp;
           }
-        } catch (e) {
+        } catch (error) {
           return true; // Pass: Non-JWT token that looks like JWT
         }
       }
@@ -122,7 +122,7 @@ export default class VueAuthenticate {
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace('-', '+').replace('_', '/');
         return JSON.parse(decodeBase64(base64));
-      } catch (e) {}
+      } catch (error) {}
     }
   }
 
