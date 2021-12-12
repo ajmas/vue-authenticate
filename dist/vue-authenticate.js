@@ -775,7 +775,7 @@
      * @param  {Object} userData User data
      * @return {Promise}
      */
-    init(userData) {
+    async init(userData) {
       this.oauthPopup = new OAuthPopup(
         'about:blank',
         this.providerConfig.name,
@@ -786,18 +786,16 @@
         this.oauthPopup.open(this.providerConfig.redirectUri, true);
       }
 
-      return this.getRequestToken().then(response => {
-        return this.openPopup(response).then(popupResponse => {
-          return this.exchangeForToken(popupResponse, userData);
-        });
-      });
+      const response = await this.getRequestToken();
+      const popupResponse = await this.openPopup(response);
+      return this.exchangeForToken(popupResponse, userData);
     }
 
     /**
      * Get OAuth1 request token
      * @return {Promise}
      */
-    getRequestToken() {
+    async getRequestToken() {
       let requestOptions = {};
       requestOptions.method = 'POST';
       requestOptions[this.options.requestDataKey] = objectExtend(
@@ -822,7 +820,7 @@
      * @param  {Object} response Response object containing request token
      * @return {Promise}
      */
-    openPopup(response) {
+    async openPopup(response) {
       const url = [
         this.providerConfig.authorizationEndpoint,
         this.buildQueryString(response[this.options.responseDataKey]),
@@ -842,7 +840,7 @@
      * @param  {Object} userData User data
      * @return {Promise}
      */
-    exchangeForToken(oauth, userData) {
+    async exchangeForToken(oauth, userData) {
       let payload = objectExtend({}, userData);
       payload = objectExtend(payload, oauth);
       let requestOptions = {};
@@ -907,7 +905,7 @@
       this.options = options;
     }
 
-    init(userData) {
+    async init(userData) {
       let stateName = this.providerConfig.name + '_state';
       if (isFunction(this.providerConfig.state)) {
         this.storage.setItem(stateName, this.providerConfig.state());
@@ -926,34 +924,24 @@
         this.providerConfig.popupOptions
       );
 
-      return new Promise((resolve, reject) => {
-        this.oauthPopup
-          .open(this.providerConfig.redirectUri)
-          .then(response => {
-            if (
-              this.providerConfig.responseType === 'token' ||
-              !this.providerConfig.url
-            ) {
-              return resolve(response);
-            }
+      const response = await oauthPopup.open(this.providerConfig.redirectUri);
+      if (
+        this.providerConfig.responseType === 'token' ||
+        !this.providerConfig.url
+      ) {
+        return response;
+      }
 
-            if (
-              response.state &&
-              response.state !== this.storage.getItem(stateName)
-            ) {
-              return reject(
-                new Error(
-                  'State parameter value does not match original OAuth request state value'
-                )
-              );
-            }
+      if (
+        response.state &&
+        response.state !== this.storage.getItem(stateName)
+      ) {
+        throw new Error(
+            'State parameter value does not match original OAuth request state value'
+          );
+      }
 
-            resolve(this.exchangeForToken(response, userData));
-          })
-          .catch(err => {
-            reject(err);
-          });
-      });
+      return this.exchangeForToken(response, userData);
     }
 
     /**
@@ -1280,7 +1268,7 @@
           );
           break;
         default:
-          return reject(new Error('Invalid OAuth type'));
+          throw new Error('Invalid OAuth type');
       }
 
       const response = providerInstance.init(userData);
@@ -1330,7 +1318,7 @@
           );
           break;
         default:
-          return reject(new Error('Invalid OAuth type'));
+          throw new Error('Invalid OAuth type');
       }
 
       const response = providerInstance.init(userData);

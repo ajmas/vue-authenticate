@@ -2,11 +2,9 @@
   "name": "vue-authenticate",
   "version": "1.5.0",
   "description": "Authentication library for Vue.js",
-  "main": "dist/vue-authenticate.common.js",
-  "module": "dist/vue-authenticate.esm.js",
-  "unpkg": "dist/vue-authenticate.js",
+  "main": "dist/vue-authenticate.js",
   "scripts": {
-    "build": "rollup src/index.js --format umd --name \"vue-authenticate\" --file dist/vue-authenticate.esm.js"
+    "build": "rollup src/index.js --format umd --name \"vue-authenticate\" --file dist/vue-authenticate.js"
   },
   "keywords": [
     "vue",
