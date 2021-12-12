@@ -55,7 +55,7 @@ export default class OAuth2 {
       this._stringifyRequestParams(),
     ].join('?');
 
-    this.oauthPopup = new OAuthPopup(
+    const oauthPopup = new OAuthPopup(
       url,
       this.providerConfig.name,
       this.providerConfig.popupOptions
