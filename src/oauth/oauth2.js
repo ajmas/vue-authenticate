@@ -37,8 +37,13 @@ export default class OAuth2 {
   constructor ($http, storage, providerConfig, options) {
     this.$http = $http;
     this.storage = storage;
-    this.providerConfig = objectExtend({}, defaultProviderConfig);
+    this.providerConfig = Object.assign({}, defaultProviderConfig);
     this.providerConfig = objectExtend(this.providerConfig, providerConfig);
+
+    console.log('YYYYA', objectExtend(this.providerConfig, providerConfig));
+    console.log('YYYYB', Object.assign(this.providerConfig, providerConfig));
+    console.log('YYYYC', this.options);
+
     this.options = options;
   }
 
@@ -92,6 +97,8 @@ export default class OAuth2 {
    */
   exchangeForToken (oauth, userData) {
     const payload = objectExtend({}, userData);
+
+    console.debug('exchangeForToken > userData', userData);
 
     for (const key in this.providerConfig.responseParams) {
       switch (key) {
