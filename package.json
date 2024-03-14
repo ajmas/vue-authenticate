@@ -55,6 +55,9 @@
     "axios": "^1.6.7",
     "vue": "^3.4.21"
   },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.9.5"
+  },
   "type": "module",
   "tags": [
     "auth",
