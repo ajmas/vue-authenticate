@@ -32,6 +32,7 @@ export interface ProviderOptions {
     width: number;
     height: number;
   };
+  tokenPath?: string;
 }
 
 export declare class VueAuthenticate {
