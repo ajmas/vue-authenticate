@@ -8,7 +8,9 @@ This library was inspired by well known authentication library for Angular calle
 
 ## Targeted Node.js versions
 
-This has been tested to build with Node.js 14, 16 and 18.
+This has been tested to build with Node.js 16, 18 and 20.
+
+If you need support for Node.js 14, then please use release 2.1.0.
 
 ## Changes in vue-authenticate-2
 
