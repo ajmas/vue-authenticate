@@ -61,7 +61,9 @@ export declare class VueAuthenticate {
   ): Promise<{}>;
 }
 
-export const VueAuthenticatePlugin: (app: App, options?: AuthenticateOptions) => void;
+declare namespace VueAuthenticatePlugin {
+  function install(app: App, options?: AuthenticateOptions): void;
+}
 
 export interface AuthenticateOptions {
   baseUrl?: string;
